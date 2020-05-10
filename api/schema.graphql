@@ -1,0 +1,55 @@
+enum categories {
+  Shirts
+  Jeans
+  Jackets
+  Sweaters
+  Accessories
+}
+
+type Product {
+  _id: ID!
+  id: Int!
+  category: categories!
+  name: String!
+  price: Float!
+  image: String!
+  description: String
+
+}
+
+input ProductInputs {
+  category: categories!
+  name: String!
+  price: Float!
+  image: String!
+  description: String
+
+}
+
+"""Inputs for productUpdate: all are optional. Whichever is specified will
+be set to the given value, undefined fields will remain unmodified."""
+input ProductUpdateInputs {
+  category: categories
+  name: String
+  price: Float
+  image: String
+  description: String
+}
+
+type ProductCount{
+  total : Int!
+}
+
+type Query {
+  about: String!
+  productCount : ProductCount!
+  productList: [Product!]!
+  product(id: Int!): Product!
+}
+
+type Mutation {
+  setAboutMessage(message: String!): String
+  productAdd(product:ProductInputs!):Product!
+  productUpdate(id: Int!, changes: ProductUpdateInputs!): Product!
+  productDelete(id: Int!): Boolean!
+}
